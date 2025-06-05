@@ -99,11 +99,14 @@ void waitForConnection(int port, bool passRequired, const std::string& password,
 
 void sendLoop() {
     std::string message;
-    while (true) {
+    while (true)
+    {
         std::cout << "> ";
+        std::string message;
         std::getline(std::cin, message);
 
-        if (message == "/exit") {
+        if (message == "/exit")
+        {
             std::cout << "Exiting..." << std::endl;
             close(client_socket);
             exit(0);
@@ -126,7 +129,7 @@ void receiveLoop() {
         }
 
         buffer[bytesReceived] = '\0'; // Null-terminate the buffer
-        std::cout << std::endl << "[Client]: " << buffer << std::endl << "> ";
+        std::cout << std::endl << "[Client]: " << buffer << std::endl;
         std::cout.flush();
     }
 }

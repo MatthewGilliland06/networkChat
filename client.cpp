@@ -8,12 +8,12 @@
 
 int client_socket;
 
-void sendLoop()
-{
+void sendLoop() {
     std::string message;
     while (true)
     {
         std::cout << "> ";
+        std::string message;
         std::getline(std::cin, message);
 
         if (message == "/exit")
@@ -27,21 +27,20 @@ void sendLoop()
     }
 }
 
-void receiveLoop()
-{
+
+void receiveLoop() {
     char buffer[1024];
-    while (true)
-    {
+
+    while (true) {
         ssize_t bytesReceived = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
-        if (bytesReceived <= 0)
-        {
-            std::cout << std::endl << "Connection closed by host." << std::endl;
+        if (bytesReceived <= 0) {
+            std::cout << std::endl << "Connection closed by peer." << std::endl;
             close(client_socket);
             exit(0);
         }
 
-        buffer[bytesReceived] = '\0';
-        std::cout << std::endl << "[Host]: " << buffer << std::endl << "> ";
+        buffer[bytesReceived] = '\0'; // Null-terminate the buffer
+        std::cout << std::endl << "[Client]: " << buffer << std::endl;
         std::cout.flush();
     }
 }
